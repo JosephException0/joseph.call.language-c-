@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+
+class SinglyCircularLL {
+private:
+    Node* tail;
+
+public:
+    SinglyCircularLL() : tail(nullptr) {}
+
+    void add(int data) {
+        Node* n= new Node;
+        n->data=data;
+        if(!tail){
+            tail=n;
+            tail->next=tail;
+        }else{
+            n->next=tail->next;
+            tail->next=n;
+            tail=n;
+        }
+    }
+
+    void remove(int data) {
+       Node* n=tail->next;
+       Node* prev=tail;
+       do{
+           if(n->data==data){
+               prev->next=n->next;
+               if(n==tail){
+                   tail=prev;
+               }
+               delete n;
+               return;
+           }
+           prev=n;
+           n=n->next;
+           
+           
+       }while(n!=tail->next);
+    }
+
+    void print() {
+       Node* n=tail->next;
+       if(!tail){
+           return;
+       }
+       do{
+           cout<<n->data<<" ";
+           n=n->next;
+       }while(n!=tail->next);
+    }
+};
+
+
+int main() {
+    SinglyCircularLL list;
+    list.add(10);
+    list.add(20);
+    list.add(30);
+    list.remove(10);
+    list.print();  
+    return 0;
+}
