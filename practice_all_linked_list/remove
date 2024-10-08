@@ -1,61 +1,94 @@
-struct node {
-    int elem;        // Data element
-    node* next;      // Pointer to the next node
-    node* prev;      // Pointer to the previous node
+#include <iostream>
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+
+    Node(int val) : data(val), prev(nullptr), next(nullptr) {}
 };
 
 class DoublyLinkedList {
 private:
-    node* head;      // Pointer to the first node
-    node* tail;      // Pointer to the last node
-
-    // Helper function to remove a node
-    void removeNode(node* n) {
-        if (!n) return;  // Node is null, nothing to remove
-
-        // Case 1: If n is the only node in the list
-        if (head == n && tail == n) {
-            delete n;
-            head = nullptr;
-            tail = nullptr;
-            return;
-        }
-
-        // Case 2: Removing head
-        if (n == head) {
-            head = head->next;
-            head->prev = nullptr;
-        }
-        // Case 3: Removing tail
-        else if (n == tail) {
-            tail = tail->prev;
-            tail->next = nullptr;
-        }
-        // Case 4: Removing a middle node
-        else {
-            n->prev->next = n->next;
-            n->next->prev = n->prev;
-        }
-
-        delete n;  // Free the memory of the node
-    }
+    Node* head;
+    Node* tail;
 
 public:
     DoublyLinkedList() : head(nullptr), tail(nullptr) {}
 
-    // Remove the first node
+    // Method to remove the first node
     void removeFirst() {
-        if (head) {
-            removeNode(head);  // Use helper to remove the head
+        if (!head) return;  // List is empty
+        Node* temp = head;
+        if (head == tail) {  // Only one element
+            head = tail = nullptr;
+        } else {
+            head = head->next;
+            head->prev = nullptr;
         }
+        delete temp;
     }
 
-    // Remove the last node
+    // Method to remove the last node
     void removeLast() {
-        if (tail) {
-            removeNode(tail);  // Use helper to remove the tail
+        if (!tail) return;  // List is empty
+        Node* temp = tail;
+        if (head == tail) {  // Only one element
+            head = tail = nullptr;
+        } else {
+            tail = tail->prev;
+            tail->next = nullptr;
+        }
+        delete temp;
+    }
+
+    //todo///
+    void removeNode(Node* n) {
+        if (!n) return;  // Null node passed
+
+        if (n == head) {  // If the node to be removed is the first node
+            removeFirst();
+        } else if (n == tail) {  // If the node to be removed is the last node
+            removeLast();
+        } else {  // Node is somewhere in the middle
+            n->prev->next = n->next;
+            n->next->prev = n->prev;
+            delete n;
         }
     }
 
-    // Additional methods to manage the doubly linked list...
+    // Utility method to add a node at the end (for testing purposes)
+    void append(int data) {
+        Node* newNode = new Node(data);
+        if (!head) {
+            head = tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+    }
+
+    // Utility method to print the list
+    void printList() {
+        Node* temp = head;
+        while (temp) {
+            std::cout << temp->data << " ";
+            temp = temp->next;
+        }
+        std::cout << std::endl;
+    }
 };
+
+int main() {
+    DoublyLinkedList dll;
+    dll.append(1);
+    dll.append(2);
+    dll.append(3);
+    dll.append(4);
+    dll.append(5);
+
+    dll.printList();  // Output: 1 2 3 4 5
+
+    Node* nodeToRemove = dll.head->next->next;  // Removing the node with value 3
+    dll.removeNode(node
