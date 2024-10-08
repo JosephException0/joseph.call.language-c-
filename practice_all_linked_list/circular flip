@@ -30,7 +30,9 @@ public:
             pred=n;
             n=succ;
         }
+        tail=head;
         head=pred;
+        
     }
 
     void print() {
