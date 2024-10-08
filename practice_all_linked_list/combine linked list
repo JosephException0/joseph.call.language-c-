@@ -44,7 +44,7 @@ public:
         }
         std::cout << std::endl;
     }
-
+    //todo///
     void combine(Doubly* other) {
         if (!head) {
             head = other->head;
