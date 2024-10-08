@@ -52,11 +52,11 @@ public:
         }    
         Node* n=tail->next;
         do{
-            cout<<n->data<<" ";
+            cout<<n->data<<"->";
             n=n->next;
             
         }while(n!=tail->next);
-        
+        cout<<n->elem;
     }
 };
 
