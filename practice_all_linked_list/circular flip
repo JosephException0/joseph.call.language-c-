@@ -19,7 +19,7 @@ public:
         newNode->next = head;
         head = newNode;
     }
-
+    //todo
     void flip() {
         Node* n=head;
         Node* pred=nullptr;
