@@ -1,0 +1,61 @@
+struct node {
+    int elem;        // Data element
+    node* next;      // Pointer to the next node
+    node* prev;      // Pointer to the previous node
+};
+
+class DoublyLinkedList {
+private:
+    node* head;      // Pointer to the first node
+    node* tail;      // Pointer to the last node
+
+    // Helper function to remove a node
+    void removeNode(node* n) {
+        if (!n) return;  // Node is null, nothing to remove
+
+        // Case 1: If n is the only node in the list
+        if (head == n && tail == n) {
+            delete n;
+            head = nullptr;
+            tail = nullptr;
+            return;
+        }
+
+        // Case 2: Removing head
+        if (n == head) {
+            head = head->next;
+            head->prev = nullptr;
+        }
+        // Case 3: Removing tail
+        else if (n == tail) {
+            tail = tail->prev;
+            tail->next = nullptr;
+        }
+        // Case 4: Removing a middle node
+        else {
+            n->prev->next = n->next;
+            n->next->prev = n->prev;
+        }
+
+        delete n;  // Free the memory of the node
+    }
+
+public:
+    DoublyLinkedList() : head(nullptr), tail(nullptr) {}
+
+    // Remove the first node
+    void removeFirst() {
+        if (head) {
+            removeNode(head);  // Use helper to remove the head
+        }
+    }
+
+    // Remove the last node
+    void removeLast() {
+        if (tail) {
+            removeNode(tail);  // Use helper to remove the tail
+        }
+    }
+
+    // Additional methods to manage the doubly linked list...
+};
