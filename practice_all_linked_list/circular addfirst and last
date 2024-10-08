@@ -45,6 +45,16 @@ public:
         }
         tail=tail->next;
     }
+    // kamoy bahala either remove first or last
+    void removefirst(){
+        if(!tail){
+            return;
+        }
+        node* n=tail->next;
+        tail->next=n->next;
+        delete n;
+        size--;
+    }
 
     void print() {
         if(!tail){
