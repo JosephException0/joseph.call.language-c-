@@ -37,14 +37,14 @@ int main(){
             	int a=stack->checkbalance(mystring);
             	if(a==0){
             		cout<<"String is balanced"<<endl;
-				}else if(a==1){
-					cout<<"String is mismatched"<<endl;
-				}else if(a==2){
-					cout<<"String is lacks closing"<<endl;
-				}else if(a==3){
-					cout<<"String lacks opening"<<endl;
-				}
-				break;
+		}else if(a==1){
+			cout<<"String is mismatched"<<endl;
+		}else if(a==2){
+			cout<<"String is lacks closing"<<endl;
+		}else if(a==3){
+			cout<<"String lacks opening"<<endl;
+		}
+		break;
 				
         }
         
